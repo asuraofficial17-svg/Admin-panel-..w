@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FX AVIATOR GOD | Admin Deck</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #020617;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.65) 0%, rgba(30, 41, 59, 0.45) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            box-shadow: 0 0 60px -10px rgba(0, 0, 0, 0.8);
+        }
+
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(to right, #6366f1, #06b6d4, #10b981);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.15; filter: blur(100px); }
+            50% { transform: scale(1.1); opacity: 0.25; filter: blur(130px); }
+        }
+
+        .glow-orb { animation: pulseGlow 10s infinite ease-in-out; }
+
+        .toast-enter { animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .toast-exit { animation: slideOut 0.3s cubic-bezier(0.7, 0, 0.84, 0) forwards; }
+
+        @keyframes slideIn {
+            from { transform: translateX(120%) scale(0.9); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0) scale(1); opacity: 1; }
+            to { transform: translateX(120%) scale(0.9); opacity: 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased text-slate-200 p-4 md:p-8 flex items-center justify-center relative">
+
+    <div id="notificationContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 pointer-events-none max-w-sm w-full px-4 sm:px-0"></div>
+
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] z-0 pointer-events-none opacity-40"></div>
+
+    <div class="glow-orb absolute top-10 left-10 h-[500px] w-[500px] rounded-full bg-indigo-600/30 z-0"></div>
+    <div class="glow-orb absolute bottom-10 right-10 h-[500px] w-[500px] rounded-full bg-emerald-600/20 z-0" style="animation-delay: -5s;"></div>
+
+    <div class="w-full max-w-5xl z-10 flex flex-col gap-6">
+        
+        <header class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-cyan-950/50 border border-cyan-800/30 rounded-xl text-cyan-400">
+                    <i data-lucide="terminal" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400 uppercase">
+                        FX GOD CONTROL DECK
+                    </h1>
+                    <p class="text-[10px] font-mono tracking-wider text-slate-400 uppercase">CENTRAL PERMISSIONS AUTHORITY v1</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 font-mono text-xs">
+                <div class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-950/60 border border-slate-800 rounded-full">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-emerald-400 font-bold">SERVER CONNECTED</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <section class="glass-panel neon-border p-6 rounded-3xl lg:col-span-5 space-y-5">
+                <div class="flex items-center gap-2 text-slate-300 pb-2 border-b border-slate-800/60">
+                    <i data-lucide="key-round" class="w-4 h-4 text-cyan-400"></i>
+                    <h2 class="text-xs font-mono font-bold uppercase tracking-widest">LEASE PROVISION ENGINE</h2>
+                </div>
+
+                <form id="provisionForm" class="space-y-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">TARGET HARDWARE ID</label>
+                        <div class="relative flex items-center">
+                            <input 
+                                type="text" 
+                                id="targetIdInput" 
+                                placeholder="PASTE FXA-HASH HERE..." 
+                                required
+                                class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-cyan-400 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 transition-colors shadow-inner uppercase"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                        <div class="sm:col-span-5 space-y-1.5">
+                            <label class="block text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">VAL TIME</label>
+                            <input 
+                                type="number" 
+                                id="validityValue" 
+                                min="1" 
+                                value="1" 
+                                required
+                                class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-indigo-400 focus:outline-none focus:border-indigo-500/50 transition-colors shadow-inner"
+                            >
+                        </div>
+                        <div class="sm:col-span-7 space-y-1.5">
+                            <label class="block text-[10px] font-mono font-bold tracking-widest text-slate-400 uppercase">TIME UNIT</label>
+                            <select 
+                                id="validityUnit"
+                                class="w-full bg-slate-950/90 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500/50 transition-colors shadow-inner cursor-pointer"
+                            >
+                                <option value="minutes">MINUTES (m)</option>
+                                <option value="hours">HOURS (h)</option>
+                                <option value="days" selected>DAYS (d)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button 
+                        type="submit"
+                        class="w-full relative group overflow-hidden rounded-xl bg-gradient-to-r from-indigo-600 via-cyan-600 to-emerald-500 p-3.5 text-xs font-mono font-bold tracking-widest text-white shadow-xl transition-all active:scale-[0.99] mt-2"
+                    >
+                        <span class="relative z-10 flex items-center justify-center gap-2">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                            <span>AUTHORIZE LEASE MATRIX</span>
+                        </span>
+                        <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-emerald-500 via-cyan-600 to-indigo-600 transition-transform duration-500 group-hover:translate-x-0"></div>
+                    </button>
+                </form>
+            </section>
+
+            <section class="glass-panel p-6 rounded-3xl lg:col-span-7 space-y-4">
+                <div class="flex justify-between items-center pb-2 border-b border-slate-800/60">
+                    <div class="flex items-center gap-2 text-slate-300">
+                        <i data-lucide="database" class="w-4 h-4 text-emerald-400"></i>
+                        <h2 class="text-xs font-mono font-bold uppercase tracking-widest">ACTIVE HARDWARE ENTRIES</h2>
+                    </div>
+                    <span id="nodeCounter" class="text-[10px] font-mono px-2 py-0.5 bg-slate-950 border border-slate-800 rounded text-slate-400">NODES: 0</span>
+                </div>
+
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left font-mono text-xs border-collapse">
+                        <thead>
+                            <tr class="text-slate-500 border-b border-slate-900 text-[10px] uppercase tracking-wider">
+                                <th class="py-3 px-2">HARDWARE STRUCT</th>
+                                <th class="py-3 px-2">EXPIRATION TIMESTAMP</th>
+                                <th class="py-3 px-2 text-right">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registryTableBody" class="divide-y divide-slate-900/60">
+                            <tr id="emptyRowPlaceholder">
+                                <td colspan="3" class="text-center py-8 text-slate-600 text-[11px] uppercase tracking-widest">No Active Nodes Inside Database Pool</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, remove, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBpMVq5oNR4IEqy9FuOEbo8zqXx6tiWZCM",
+            authDomain: "madarablzr.firebaseapp.com",
+            databaseURL: "https://madarablzr-default-rtdb.firebaseio.com",
+            projectId: "madarablzr",
+            storageBucket: "madarablzr.firebasestorage.app",
+            messagingSenderId: "1043305827290",
+            appId: "1:1043305827290:android:1357068788acf1e54a4ee3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Core Admin Toast System Engine Injection
+        function triggerAdminNotification(msg, category = 'info', symbol = 'info') {
+            const container = document.getElementById('notificationContainer');
+            const visualProfiles = {
+                success: { bg: 'rgba(6, 78, 59, 0.9)', border: 'rgba(52, 211, 153, 0.4)', text: '#34d399' },
+                error: { bg: 'rgba(153, 27, 27, 0.9)', border: 'rgba(251, 113, 133, 0.4)', text: '#fb7185' },
+                info: { bg: 'rgba(15, 23, 42, 0.9)', border: 'rgba(56, 189, 248, 0.4)', text: '#38bdf8' }
+            };
+            const activeProfile = visualProfiles[category] || visualProfiles.info;
+            
+            const toast = document.createElement('div');
+            toast.className = "toast-enter pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-mono font-bold shadow-2xl backdrop-blur-md border border-solid";
+            toast.style.background = activeProfile.bg;
+            toast.style.borderColor = activeProfile.border;
+            toast.style.color = activeProfile.text;
+            
+            toast.innerHTML = `<i data-lucide="${symbol}" class="w-4 h-4 shrink-0"></i><div>${msg}</div>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-exit');
+                toast.addEventListener('animationend', () => toast.remove());
+            }, 3000);
+        }
+
+        // Live Synchronized Event Fetch Loop from Firebase Database
+        const dbDevicesRef = ref(database, 'devices');
+        onValue(dbDevicesRef, (snapshot) => {
+            const tableBody = document.getElementById('registryTableBody');
+            tableBody.innerHTML = ''; // Reset rendering layout structures
+            
+            if (snapshot.exists()) {
+                const dataEntries = snapshot.val();
+                let indexCounter = 0;
+                
+                for (const itemKey in dataEntries) {
+                    indexCounter++;
+                    const dataRowObj = dataEntries[itemKey];
+                    const expDateString = dataRowObj.validUntil ? new Date(dataRowObj.validUntil).toLocaleString() : 'INFINITE';
+                    
+                    const rowElement = document.createElement('tr');
+                    rowElement.className = "hover:bg-slate-900/30 transition-colors";
+                    rowElement.innerHTML = `
+                        <td class="py-3.5 px-2 font-bold text-cyan-400 tracking-wide break-all">${itemKey}</td>
+                        <td class="py-3.5 px-2 text-slate-400 text-[11px]">${expDateString}</td>
+                        <td class="py-3.5 px-2 text-right">
+                            <button class="delete-node-btn p-1.5 hover:bg-rose-950/40 border border-transparent hover:border-rose-800/30 rounded-lg text-rose-400 transition-all active:scale-90" data-node-id="${itemKey}">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(rowElement);
+                }
+                
+                document.getElementById('nodeCounter').innerText = `NODES: ${indexCounter}`;
+                attachDeleteListeners();
+            } else {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="text-center py-8 text-slate-600 text-[11px] uppercase tracking-widest">No Active Nodes Inside Database Pool</td>
+                    </tr>
+                `;
+                document.getElementById('nodeCounter').innerText = 'NODES: 0';
+            }
+            lucide.createIcons();
+        });
+
+        // Delete Execution Bindings Helper Functions
+        function attachDeleteListeners() {
+            document.querySelectorAll('.delete-node-btn').forEach(buttonElement => {
+                buttonElement.addEventListener('click', async (event) => {
+                    const targetId = buttonElement.getAttribute('data-node-id');
+                    try {
+                        await remove(ref(database, 'devices/' + targetId));
+                        triggerAdminNotification(`NODE REMOVED SUCCESSFULLY`, "success", "trash-2");
+                    } catch (error) {
+                        triggerAdminNotification("DELETION FAILURE FROM DATABASE EXCEPTION", "error", "x-circle");
+                    }
+                });
+            });
+        }
+
+        // Processing Authorization Provisions Rules & Calculations Form Submit Handler
+        document.getElementById('provisionForm').addEventListener('submit', async (formSubmitEvent) => {
+            formSubmitEvent.preventDefault();
+            
+            const dirtyTargetId = document.getElementById('targetIdInput').value;
+            const targetHardwareId = dirtyTargetId.trim().toUpperCase();
+            const numericValue = parseInt(document.getElementById('validityValue').value);
+            const chosenUnit = document.getElementById('validityUnit').value;
+            
+            if(!targetHardwareId) {
+                triggerAdminNotification("INVALID DEVICE ID FORMAT DETECTED", "error", "alert-octagon");
+                return;
+            }
+
+            // Calculations based on minutes, hours, days
+            const currentEpochTime = new Date();
+            if (chosenUnit === 'minutes') {
+                currentEpochTime.setMinutes(currentEpochTime.getMinutes() + numericValue);
+            } else if (chosenUnit === 'hours') {
+                currentEpochTime.setHours(currentEpochTime.getHours() + numericValue);
+            } else if (chosenUnit === 'days') {
+                currentEpochTime.setDate(currentEpochTime.getDate() + numericValue);
+            }
+
+            const calculatedTimestampISO = currentEpochTime.toISOString();
+
+            try {
+                await set(ref(database, 'devices/' + targetHardwareId), {
+                    validUntil: calculatedTimestampISO,
+                    grantedAt: new Date().toISOString()
+                });
+                
+                triggerAdminNotification("LEASE PROTOCOL DEPLOYED SUCCESSFULLY", "success", "shield-check");
+                document.getElementById('provisionForm').reset();
+                document.getElementById('validityValue').value = "1";
+                document.getElementById('validityUnit').value = "days";
+            } catch (err) {
+                triggerAdminNotification("PROVISION PIPELINE RECORD FAILED", "error", "x-circle");
+            }
+        });
+
+        // Initialize Native Icon Configuration Assets
+        lucide.createIcons();
+
+        // High Strict Protection Matrix Protocols against Inspector Tools
+        document.addEventListener('contextmenu', mouseEvent => mouseEvent.preventDefault());
+        document.addEventListener('keydown', keyboardEvent => {
+            if (keyboardEvent.keyCode === 123 || (keyboardEvent.ctrlKey && keyboardEvent.shiftKey && (keyboardEvent.keyCode === 73 || keyboardEvent.keyCode === 74)) || (keyboardEvent.ctrlKey && keyboardEvent.keyCode === 85)) {
+                keyboardEvent.preventDefault();
+            }
+        });
+        document.addEventListener('touchmove', touchEvent => { if (touchEvent.scale !== undefined && touchEvent.scale !== 1) touchEvent.preventDefault(); }, { passive: false });
+    </script>
+</body>
+</html>
